@@ -1,6 +1,15 @@
 package com.example.ucproomdb.ui.viewmodel
 
+
 import com.example.ucproomdb.data.entity.Barang
+
+
+
+data class InsertBrgUiState(
+    val barangEvent: BarangEvent = BarangEvent(),
+    val isEntryValid: FormErrorState = FormErrorState(),
+    val snackBarMessage: String? = null
+)
 
 data class FormErrorState(
     val idBarang :String? = null,
@@ -16,8 +25,6 @@ data class FormErrorState(
     }
 }
 
-
-
 fun BarangEvent.toBaranEntity(): Barang = Barang(
     idBarang = idBarang,
     nama = nama,
@@ -26,7 +33,6 @@ fun BarangEvent.toBaranEntity(): Barang = Barang(
     stok = stok,
     namaSupplier = namaSupplier
 )
-
 
 data class BarangEvent(
     val idBarang :String = "",
