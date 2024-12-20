@@ -17,7 +17,7 @@ class ListBrgViewModel(
     private val
     repositoryBrg: RepositoryBrg
 ) : ViewModel() {
-    val homeUiState: StateFlow<BarangUiState> = repositoryBrg.getAllBrg()
+    val listBrgUiState: StateFlow<BarangUiState> = repositoryBrg.getAllBrg()
         .filterNotNull()
         .map {
             BarangUiState(
