@@ -5,6 +5,8 @@ import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.ucproomdb.InventoryApp
+import com.example.ucproomdb.ui.viewmodel.barang.InsertBrgViewModel
+import com.example.ucproomdb.ui.viewmodel.supplier.InsertSuppViewModel
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {

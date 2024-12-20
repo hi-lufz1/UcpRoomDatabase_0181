@@ -18,7 +18,7 @@ fun PengelolaHalaman(
 ) {
     NavHost(
         navController = navController,
-        startDestination = DestinasiInsertSupp.route
+        startDestination = DestinasiHome.route
     ) {
         composable(route = DestinasiHome.route) {
             HomeView(

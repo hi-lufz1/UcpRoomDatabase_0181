@@ -1,4 +1,4 @@
-package com.example.ucproomdb.ui.viewmodel
+package com.example.ucproomdb.ui.viewmodel.barang
 
 
 import androidx.compose.runtime.getValue
@@ -81,6 +81,9 @@ class InsertBrgViewModel(
                 snackBarMessage = "Input tidak valid. Periksa kembali data Anda",
             )
         }
+    }
+    fun resetSnackBarMessage() {
+        brgUiState = brgUiState.copy(snackBarMessage = null)
     }
 }
 

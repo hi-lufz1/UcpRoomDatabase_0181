@@ -21,14 +21,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.ucproomdb.ui.viewmodel.InsertSuppViewModel
+import com.example.ucproomdb.ui.viewmodel.supplier.InsertSuppViewModel
 import com.example.ucproomdb.ui.viewmodel.PenyediaViewModel
-import com.example.ucproomdb.ui.viewmodel.SuppFormErrorState
-import com.example.ucproomdb.ui.viewmodel.SuppUIState
-import com.example.ucproomdb.ui.viewmodel.SupplierEvent
-import kotlinx.coroutines.coroutineScope
+import com.example.ucproomdb.ui.viewmodel.supplier.SuppFormErrorState
+import com.example.ucproomdb.ui.viewmodel.supplier.SuppUIState
+import com.example.ucproomdb.ui.viewmodel.supplier.SupplierEvent
 import kotlinx.coroutines.launch
-import java.text.Normalizer.Form
 
 @Preview(showBackground = true)
 @Composable
@@ -113,13 +111,13 @@ fun InsertSupplierView(
     modifier: Modifier = Modifier,
     viewModel: InsertSuppViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
-    val uiState = viewModel.suppUiState
+    val uiStateP = viewModel.suppUiState
     val snackbarHostState = remember { SnackbarHostState() }
     val coroutineScope = rememberCoroutineScope()
 
     //Observasi perubahan snackbarMessage
-    LaunchedEffect(uiState.snackBarMessage) {
-        uiState.snackBarMessage?.let { message ->
+    LaunchedEffect(uiStateP.snackBarMessage) {
+        uiStateP.snackBarMessage?.let { message ->
             coroutineScope.launch {
                 snackbarHostState.showSnackbar(message)
                 viewModel.resetSnackBarMessage()
@@ -138,7 +136,7 @@ fun InsertSupplierView(
                 .padding(16.dp)
         ) {
             InsertBodySupp(
-                uiState = uiState,
+                uiState = uiStateP,
                 onValueChange = { updatedEvent ->
                     viewModel.updateState(updatedEvent)
                 },

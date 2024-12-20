@@ -17,17 +17,15 @@ import androidx.compose.ui.Modifier
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DropDown (
+fun DropDownWidget(
     selectedValue: String,
     options: List<String>,
     label: String,
     onValueChangeEvent: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var expanded by remember { mutableStateOf(false) }
 
-    var expanded by remember {
-        mutableStateOf(false)
-    }
     ExposedDropdownMenuBox(
         expanded = expanded,
         onExpandedChange = { expanded = !expanded },
@@ -37,23 +35,21 @@ fun DropDown (
             readOnly = true,
             value = selectedValue,
             onValueChange = {},
-            label = { Text (text = label) },
+            label = { Text(text = label) },
             trailingIcon = {
-                ExposedDropdownMenuDefaults.TrailingIcon(
-                    expanded = expanded
-                )
+                ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },
-            colors = OutlinedTextFieldDefaults.colors(),
             modifier = Modifier
                 .menuAnchor()
                 .fillMaxWidth()
         )
-        ExposedDropdownMenu(expanded = expanded,
-            onDismissRequest = {expanded = false}) {
-            options.forEach{
-                    option: String ->
+        ExposedDropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false }
+        ) {
+            options.forEach { option ->
                 DropdownMenuItem(
-                    text = { Text(text= option) },
+                    text = { Text(text = option) },
                     onClick = {
                         expanded = false
                         onValueChangeEvent(option)

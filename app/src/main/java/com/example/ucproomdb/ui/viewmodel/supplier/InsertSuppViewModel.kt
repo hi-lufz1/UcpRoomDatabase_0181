@@ -1,4 +1,4 @@
-package com.example.ucproomdb.ui.viewmodel
+package com.example.ucproomdb.ui.viewmodel.supplier
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

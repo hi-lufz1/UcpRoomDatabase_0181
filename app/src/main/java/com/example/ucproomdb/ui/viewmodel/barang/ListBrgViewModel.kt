@@ -1,4 +1,4 @@
-package com.example.ucproomdb.ui.viewmodel
+package com.example.ucproomdb.ui.viewmodel.barang
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
