@@ -18,6 +18,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdb.ui.viewmodel.InsertSuppViewModel
@@ -29,10 +30,11 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import java.text.Normalizer.Form
 
+@Preview(showBackground = true)
 @Composable
 fun FormSupplier(
     supplierEvent: SupplierEvent = SupplierEvent(),
-    onValueChange: (SupplierEvent) -> Unit,
+    onValueChange: (SupplierEvent) -> Unit = {},
     errorState: SuppFormErrorState = SuppFormErrorState(),
     modifier: Modifier = Modifier
 ) {
@@ -58,9 +60,9 @@ fun FormSupplier(
             onValueChange = {
                 onValueChange(supplierEvent.copy(nama = it))
             },
-            label = { Text("ID") },
+            label = { Text("Nama") },
             isError = errorState.nama != null,
-            placeholder = { Text("Masukkan ID") }
+            placeholder = { Text("Masukkan Nama") }
         )
         Text(
             text = errorState.nama ?: "",
@@ -73,9 +75,9 @@ fun FormSupplier(
             onValueChange = {
                 onValueChange(supplierEvent.copy(alamat = it))
             },
-            label = { Text("ID") },
+            label = { Text("Alamat") },
             isError = errorState.alamat != null,
-            placeholder = { Text("Masukkan ID") }
+            placeholder = { Text("Masukkan Alamat") }
         )
         Text(
             text = errorState.alamat ?: "",
@@ -88,9 +90,9 @@ fun FormSupplier(
             onValueChange = {
                 onValueChange(supplierEvent.copy(kontak = it))
             },
-            label = { Text("ID") },
+            label = { Text("Kontak") },
             isError = errorState.kontak != null,
-            placeholder = { Text("Masukkan ID") }
+            placeholder = { Text("Masukkan Kontak") }
         )
         Text(
             text = errorState.kontak ?: "",
@@ -102,38 +104,11 @@ fun FormSupplier(
 
 }
 
-@Composable
-fun InsertBodySupp(
-    modifier: Modifier = Modifier,
-    onValueChange: (SupplierEvent) -> Unit,
-    uiState: SuppUIState,
-    onClick: () -> Unit
-) {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        FormSupplier(
-            supplierEvent = uiState.supplierEvent,
-            onValueChange = onValueChange,
-            errorState = uiState.isEntryValid,
-            modifier = Modifier.fillMaxWidth()
-        )
-        Button(
-            onClick = onClick,
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Simpan")
-        }
-    }
 
-}
 
 
 @Composable
 fun InsertSupplierView(
-    onBack: () -> Unit,
     onNavigate: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: InsertSuppViewModel = viewModel(factory = PenyediaViewModel.Factory)
@@ -175,4 +150,33 @@ fun InsertSupplierView(
         }
 
     }
+}
+
+
+@Composable
+fun InsertBodySupp(
+    modifier: Modifier = Modifier,
+    onValueChange: (SupplierEvent) -> Unit,
+    uiState: SuppUIState,
+    onClick: () -> Unit
+) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        FormSupplier(
+            supplierEvent = uiState.supplierEvent,
+            onValueChange = onValueChange,
+            errorState = uiState.isEntryValid,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Button(
+            onClick = onClick,
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text("Simpan")
+        }
+    }
+
 }
