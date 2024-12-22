@@ -17,6 +17,7 @@ import com.example.ucproomdb.ui.view.barang.InsertBarangView
 import com.example.ucproomdb.ui.view.barang.ListBarangView
 import com.example.ucproomdb.ui.view.barang.UpdateBarangView
 import com.example.ucproomdb.ui.view.supplier.InsertSupplierView
+import com.example.ucproomdb.ui.view.supplier.ListSupplierView
 
 @Composable
 fun PengelolaHalaman(
@@ -25,7 +26,7 @@ fun PengelolaHalaman(
 ) {
     NavHost(
         navController = navController,
-        startDestination = DestinasiListBrg.route
+        startDestination = DestinasiListSupp.route
     ) {
         composable(route = DestinasiHome.route) {
             HomeView(
@@ -92,6 +93,11 @@ fun PengelolaHalaman(
                 onNavigate = {
                     navController.popBackStack()
                 },
+                modifier = modifier
+            )
+        }
+        composable(route=DestinasiListSupp.route){
+            ListSupplierView(
                 modifier = modifier
             )
         }
