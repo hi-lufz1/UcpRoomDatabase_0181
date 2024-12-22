@@ -6,6 +6,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.ucproomdb.InventoryApp
 import com.example.ucproomdb.ui.viewmodel.barang.InsertBrgViewModel
+import com.example.ucproomdb.ui.viewmodel.barang.ListBrgViewModel
 import com.example.ucproomdb.ui.viewmodel.supplier.InsertSuppViewModel
 
 object PenyediaViewModel {
@@ -19,6 +20,11 @@ object PenyediaViewModel {
         initializer {
             InsertSuppViewModel(
                 inventoryApp().containerApp.repositorySupp
+            )
+        }
+        initializer {
+            ListBrgViewModel(
+                inventoryApp().containerApp.repositoryBrg
             )
         }
     }

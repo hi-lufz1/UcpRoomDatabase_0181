@@ -20,7 +20,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.LaunchedEffect
@@ -43,9 +46,23 @@ import kotlinx.coroutines.launch
 fun ListBarangView(
     viewModel: ListBrgViewModel = viewModel(factory = PenyediaViewModel.Factory),
     onDetailClick: (String) -> Unit = { },
+    onAddBarang: () -> Unit = { },
     modifier: Modifier = Modifier
 ) {
-    Scaffold { innerPadding ->
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onAddBarang,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(16.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Tambah Mahasiswa"
+                )
+            }
+        }
+    ) { innerPadding ->
         val listBrgUiState by viewModel.listBrgUiState.collectAsState()
 
         BodyListBarang(

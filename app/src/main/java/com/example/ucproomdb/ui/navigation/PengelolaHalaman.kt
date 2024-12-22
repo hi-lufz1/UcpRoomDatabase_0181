@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 
 import com.example.ucproomdb.ui.view.HomeView
 import com.example.ucproomdb.ui.view.barang.InsertBarangView
+import com.example.ucproomdb.ui.view.barang.ListBarangView
 import com.example.ucproomdb.ui.view.supplier.InsertSupplierView
 
 @Composable
@@ -20,7 +21,7 @@ fun PengelolaHalaman(
 ) {
     NavHost(
         navController = navController,
-        startDestination = DestinasiHome.route
+        startDestination = DestinasiListBrg.route
     ) {
         composable(route = DestinasiHome.route) {
             HomeView(
@@ -38,6 +39,12 @@ fun PengelolaHalaman(
             InsertBarangView(
                 onNavigate = {navController.navigate(DestinasiHome.route)},
                 modifier = modifier
+            )
+        }
+        composable(route= DestinasiListBrg.route){
+            ListBarangView(
+                onAddBarang = {navController.navigate(DestinasiInsertBrg.route)},
+                modifier = Modifier
             )
         }
     }
