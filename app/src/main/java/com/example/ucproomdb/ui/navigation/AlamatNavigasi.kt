@@ -12,6 +12,11 @@ object DestinasiInsertBrg : AlamatNavigasi{
     override val route = "insertBrg"
 }
 
+object DestinasiListBrg : AlamatNavigasi{
+    override val route = "listBrg"
+}
+
 object DestinasiInsertSupp : AlamatNavigasi{
     override val route = "insertSupp"
 }
+
