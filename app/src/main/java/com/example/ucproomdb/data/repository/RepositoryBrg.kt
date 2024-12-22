@@ -13,6 +13,6 @@ interface RepositoryBrg {
 
     suspend fun deleteBrg (barang: Barang)
 
-    suspend fun updateMhs (barang: Barang)
+    suspend fun updateBrg (barang: Barang)
 
 }

@@ -39,7 +39,7 @@ class DetailBrgViewModel (
                 DetailBrgUiState(
                     isLoading = false,
                     isError = true,
-                    errorMessage = it.message ?: "Terjadi Kesalahan"
+                    errorMessage = it.message ?: "Error"
                 )
             )
         }

@@ -24,8 +24,8 @@ class LocalRepoBrg(
         barangDao.deleteBarang(barang)
     }
 
-    override suspend fun updateMhs(barang: Barang) {
-       barangDao.updateBarang(barang)
+    override suspend fun updateBrg(barang: Barang) {
+        barangDao.updateBarang(barang)
     }
 
 }
