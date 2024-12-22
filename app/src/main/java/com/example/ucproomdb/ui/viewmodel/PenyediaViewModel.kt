@@ -11,6 +11,7 @@ import com.example.ucproomdb.ui.viewmodel.barang.InsertBrgViewModel
 import com.example.ucproomdb.ui.viewmodel.barang.ListBrgViewModel
 import com.example.ucproomdb.ui.viewmodel.barang.UpdateBrgViewModel
 import com.example.ucproomdb.ui.viewmodel.supplier.InsertSuppViewModel
+import com.example.ucproomdb.ui.viewmodel.supplier.ListSuppViewModel
 
 object PenyediaViewModel {
     val Factory = viewModelFactory {
@@ -40,6 +41,11 @@ object PenyediaViewModel {
             UpdateBrgViewModel(
                 createSavedStateHandle(),
                 inventoryApp().containerApp.repositoryBrg
+            )
+        }
+        initializer {
+            ListSuppViewModel(
+                inventoryApp().containerApp.repositorySupp
             )
         }
     }
