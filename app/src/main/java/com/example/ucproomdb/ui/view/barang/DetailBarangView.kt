@@ -77,7 +77,7 @@ fun DetailBarangView(
 }
 
 
-
+@Preview(showBackground = true)
 @Composable
 fun BodyDetailMhs(
     modifier: Modifier = Modifier,

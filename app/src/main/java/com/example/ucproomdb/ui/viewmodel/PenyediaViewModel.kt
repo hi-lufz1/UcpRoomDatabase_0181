@@ -33,13 +33,13 @@ object PenyediaViewModel {
         initializer {
             DetailBrgViewModel(
                 createSavedStateHandle(),
-                InventoryApp().containerApp.repositoryBrg
+                inventoryApp().containerApp.repositoryBrg
             )
         }
         initializer {
             UpdateBrgViewModel(
                 createSavedStateHandle(),
-                InventoryApp().containerApp.repositoryBrg
+                inventoryApp().containerApp.repositoryBrg
             )
         }
     }

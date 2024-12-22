@@ -5,13 +5,17 @@ import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 
 import com.example.ucproomdb.ui.view.HomeView
+import com.example.ucproomdb.ui.view.barang.DetailBarangView
 import com.example.ucproomdb.ui.view.barang.InsertBarangView
 import com.example.ucproomdb.ui.view.barang.ListBarangView
+import com.example.ucproomdb.ui.view.barang.UpdateBarangView
 import com.example.ucproomdb.ui.view.supplier.InsertSupplierView
 
 @Composable
@@ -35,16 +39,60 @@ fun PengelolaHalaman(
                 modifier = modifier
             )
         }
-        composable(route=DestinasiInsertBrg.route){
+        composable(route = DestinasiInsertBrg.route) {
             InsertBarangView(
-                onNavigate = {navController.navigate(DestinasiHome.route)},
+                onNavigate = { navController.navigate(DestinasiHome.route) },
                 modifier = modifier
             )
         }
-        composable(route= DestinasiListBrg.route){
+        composable(route = DestinasiListBrg.route) {
             ListBarangView(
-                onAddBarang = {navController.navigate(DestinasiInsertBrg.route)},
+                onAddBarang = { navController.navigate(DestinasiInsertBrg.route) },
+                onDetailClick = { id ->
+                    navController.navigate("${DestinasiDetailBrg.route}/$id")
+                    println(
+                        "PengelolaHalaman: ID =  $id"
+                    )
+                },
                 modifier = Modifier
+            )
+        }
+        composable(route = DestinasiDetailBrg.routesWithArg,
+            arguments = listOf(
+                navArgument(DestinasiDetailBrg.idBarang) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            val id = it.arguments?.getString(DestinasiDetailBrg.idBarang)
+            id?.let { id ->
+              DetailBarangView(
+                    onBack = {
+                        navController.popBackStack()
+                    },
+                    onEditClick = {
+                        navController.navigate("${DestinasiUpdateBrg.route}/$it")
+                    },
+                    modifier = modifier,
+                    onDeleteClick = {
+                        navController.popBackStack()
+                    }
+                )
+            }
+        }
+        composable(
+            DestinasiUpdateBrg.routesWithArg,
+            arguments = listOf(
+                navArgument(DestinasiUpdateBrg.idBarang) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
+            UpdateBarangView(
+                onNavigate = {
+                    navController.popBackStack()
+                },
+                modifier = modifier
             )
         }
     }
