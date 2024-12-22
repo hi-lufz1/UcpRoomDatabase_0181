@@ -15,6 +15,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDownWidget(
@@ -45,8 +46,9 @@ fun DropDownWidget(
         )
         ExposedDropdownMenu(
             expanded = expanded,
-            onDismissRequest = { expanded = false }
+            onDismissRequest = { expanded = false },
         ) {
+
             options.forEach { option ->
                 DropdownMenuItem(
                     text = { Text(text = option) },

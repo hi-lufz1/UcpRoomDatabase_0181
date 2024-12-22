@@ -137,14 +137,13 @@ fun FormBarang(
             }
         )
 
-
     }
 
 }
 
 @Composable
 fun InsertBarangView(
-    onNavigate: () -> Unit,
+    onNavigate: () -> Unit ,
     modifier: Modifier = Modifier,
     viewModel: InsertBrgViewModel = viewModel(factory = PenyediaViewModel.Factory)
 ) {
