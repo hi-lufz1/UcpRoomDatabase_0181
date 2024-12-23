@@ -63,7 +63,7 @@ fun ListSupplierView(
             TopAppBar(
                 onBack = onBack,
                 judul = "Daftar Supplier",
-                showBackButton = true,
+                showBackButton = false,
                 modifier = modifier
             )
         },

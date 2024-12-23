@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
+import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -21,6 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,6 +46,12 @@ fun TopAppBar(
         contentAlignment = Alignment.Center // Pastikan konten di tengah
     ) {
         if (showBackButton) {
+            Text(
+                text = judul,
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.Center)
+            )
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -50,10 +59,11 @@ fun TopAppBar(
                 IconButton(
                     onClick = onBack, // Fungsi untuk ikon kembali
                     modifier = Modifier.align(Alignment.CenterVertically)
-                        .size(32.dp)
+                        .size(42.dp)
+                        .wrapContentSize()
                 ) {
                     Icon(
-                        painter = painterResource(id = R.drawable.arrow_round_left__streamline_core),
+                        imageVector = Icons.Filled.KeyboardArrowLeft,
                         contentDescription = "Kembali",
                         modifier = Modifier.fillMaxSize()
                     )
@@ -69,6 +79,13 @@ fun TopAppBar(
                 )
             }
         } else {
+            // Teks judul
+            Text(
+                text = judul,
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.align(Alignment.CenterStart)
+            )
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -85,13 +102,6 @@ fun TopAppBar(
             }
         }
 
-        // Teks judul
-        Text(
-            text = judul,
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            modifier = Modifier.align(Alignment.Center)
-        )
     }
 }
 

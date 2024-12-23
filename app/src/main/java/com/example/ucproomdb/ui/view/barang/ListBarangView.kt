@@ -73,7 +73,7 @@ fun ListBarangView(
             TopAppBar(
                 onBack = onBack,
                 judul = "Daftar Barang",
-                showBackButton = true,
+                showBackButton = false,
                 modifier = modifier
             )
         },
