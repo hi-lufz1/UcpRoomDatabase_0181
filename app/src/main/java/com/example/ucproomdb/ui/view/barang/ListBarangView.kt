@@ -69,6 +69,7 @@ fun ListBarangView(
     modifier: Modifier = Modifier
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 onBack = onBack,
@@ -261,7 +262,7 @@ fun CardBrg(
                     Text(
                         text = "Harga", fontWeight = FontWeight.Normal,
                         color = Color.White,
-                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
+                        fontSize = 16.sp, modifier = Modifier.weight(0.7f)
                     )
                     Text(
                         text = " : ", fontWeight = FontWeight.Normal,
@@ -285,7 +286,7 @@ fun CardBrg(
                     Text(
                         text = "Stok", fontWeight = FontWeight.Normal,
                         color = Color.White,
-                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
+                        fontSize = 16.sp, modifier = Modifier.weight(0.7f)
                     )
                     Text(
                         text = " : ", fontWeight = FontWeight.Normal,
@@ -309,7 +310,7 @@ fun CardBrg(
                     Text(
                         text = "Supplier", fontWeight = FontWeight.Normal,
                         color = Color.White,
-                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
+                        fontSize = 16.sp, modifier = Modifier.weight(0.7f)
                     )
                     Text(
                         text = " : ", fontWeight = FontWeight.Normal,

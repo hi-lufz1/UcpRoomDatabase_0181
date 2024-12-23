@@ -26,10 +26,13 @@ fun PengelolaHalaman(
 ) {
     NavHost(
         navController = navController,
-        startDestination = DestinasiInsertSupp.route
+        startDestination = DestinasiHome.route
     ) {
         composable(route = DestinasiHome.route) {
             HomeView(
+                onHome = { navController.navigate(DestinasiHome.route) },
+                onSupplier = { navController.navigate(DestinasiListSupp.route) },
+                onBarang = { navController.navigate(DestinasiListBrg.route) },
                 onAddSupplierBtn = { navController.navigate(DestinasiInsertSupp.route) },
                 onAddBarangBtn = { navController.navigate(DestinasiInsertBrg.route) },
             )
@@ -48,7 +51,6 @@ fun PengelolaHalaman(
         }
         composable(route = DestinasiListBrg.route) {
             ListBarangView(
-                onAddBarang = { navController.navigate(DestinasiInsertBrg.route) },
                 onDetailClick = { id ->
                     navController.navigate("${DestinasiDetailBrg.route}/$id")
                     println(
@@ -58,8 +60,8 @@ fun PengelolaHalaman(
                 onHome = { navController.navigate(DestinasiHome.route) },
                 onSupplier = { navController.navigate(DestinasiListSupp.route) },
                 onBarang = { navController.navigate(DestinasiListBrg.route) },
-                onBack = { navController.popBackStack() },
-                modifier = Modifier
+                onAddBarang = { navController.navigate(DestinasiInsertBrg.route) },
+                modifier = modifier
             )
         }
         composable(route = DestinasiDetailBrg.routesWithArg,
@@ -105,7 +107,6 @@ fun PengelolaHalaman(
                 onHome = { navController.navigate(DestinasiHome.route) },
                 onSupplier = { navController.navigate(DestinasiListSupp.route) },
                 onBarang = { navController.navigate(DestinasiListBrg.route) },
-                onBack = { navController.popBackStack() },
                 onAddSupplier = {navController.navigate(DestinasiInsertSupp.route)},
                 modifier = modifier
             )

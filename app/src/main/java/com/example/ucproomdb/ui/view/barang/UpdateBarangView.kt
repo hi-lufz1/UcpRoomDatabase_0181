@@ -15,6 +15,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ucproomdb.ui.customwidget.TopAppBar
 import com.example.ucproomdb.ui.viewmodel.PenyediaViewModel
 import com.example.ucproomdb.ui.viewmodel.barang.InsertBrgViewModel
 import com.example.ucproomdb.ui.viewmodel.barang.UpdateBrgViewModel
@@ -26,6 +27,7 @@ import kotlinx.coroutines.withContext
 @Composable
 fun UpdateBarangView(
     onNavigate: () -> Unit,
+    onBack: () -> Unit,
     modifier: Modifier = Modifier,
     viewModelList: InsertBrgViewModel = viewModel(factory = PenyediaViewModel.Factory),
     viewModel: UpdateBrgViewModel = viewModel(factory = PenyediaViewModel.Factory)
@@ -50,7 +52,14 @@ fun UpdateBarangView(
             }
         }
     }
-    Scaffold(modifier = modifier,
+    Scaffold( topBar = {
+        TopAppBar(
+            onBack = onBack,
+            judul = "Edit Barang",
+            showBackButton = true,
+            modifier = modifier
+        )
+    },modifier = modifier,
         snackbarHost = { SnackbarHost(hostState = snackbarHostState) })
     { padding ->
         Column(

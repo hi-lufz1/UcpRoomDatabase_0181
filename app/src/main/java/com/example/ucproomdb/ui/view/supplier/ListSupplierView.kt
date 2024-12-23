@@ -91,7 +91,7 @@ fun ListSupplierView(
                     modifier = Modifier.size(36.dp)
                 )
             }
-        }
+        },  modifier = modifier
     ) { innerPadding ->
         val listSuppUiState by viewModel.listSuppUiState.collectAsState()
 

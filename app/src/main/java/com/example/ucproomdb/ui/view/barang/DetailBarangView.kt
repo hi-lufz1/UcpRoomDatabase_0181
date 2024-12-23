@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
@@ -28,11 +30,13 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ucproomdb.R
 import com.example.ucproomdb.data.entity.Barang
 import com.example.ucproomdb.ui.viewmodel.PenyediaViewModel
 import com.example.ucproomdb.ui.viewmodel.barang.DetailBrgUiState
@@ -53,12 +57,17 @@ fun DetailBarangView(
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { onEditClick(viewModel.detailUiState.value.detailUiEvent.idBarang) },
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(16.dp)
+                shape = CircleShape,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(64.dp),
+                containerColor = colorResource(id = R.color.primary),
+                contentColor = Color.White
             ) {
                 Icon(
                     imageVector = Icons.Default.Edit,
-                    contentDescription = "Edit Barang"
+                    contentDescription = "Edit Barang",
+                    modifier = Modifier.size(36.dp)
                 )
             }
         }
