@@ -1,6 +1,7 @@
 package com.example.ucproomdb.ui.view.barang
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,10 +15,12 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -32,6 +35,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -53,7 +57,7 @@ import com.example.ucproomdb.ui.viewmodel.barang.DetailBrgUiState
 import com.example.ucproomdb.ui.viewmodel.barang.DetailBrgViewModel
 import com.example.ucproomdb.ui.viewmodel.barang.toBarangEntity
 
-
+@Preview(showBackground = true)
 @Composable
 fun DetailBarangView(
     modifier: Modifier = Modifier,
@@ -104,13 +108,14 @@ fun DetailBarangView(
 }
 
 
-//@Preview(showBackground = true)
+@Preview(showBackground = true)
 @Composable
 fun BodyDetailBrg(
     modifier: Modifier = Modifier,
     detailBrgUiState: DetailBrgUiState = DetailBrgUiState(),
     onDeleteClick: () -> Unit = {}
 ) {
+    val isClicked = remember { mutableStateOf(false) }
     var deleteConfirmationRequired by rememberSaveable { mutableStateOf(false) }
     when {
         detailBrgUiState.isLoading -> {
@@ -132,18 +137,10 @@ fun BodyDetailBrg(
             {
                 ItemDetailBrg(
                     barang = detailBrgUiState.detailUiEvent.toBarangEntity(),
-                    modifier = Modifier
+                    modifier = Modifier,
+                    onClick = {deleteConfirmationRequired = true}
                 )
                 Spacer(modifier = Modifier.padding(8.dp))
-                Button(
-                    onClick = {
-                        deleteConfirmationRequired = true
-                    },
-                    modifier = Modifier.fillMaxWidth()
-                )
-                {
-                    Text(text = "Delete")
-                }
 
                 if (deleteConfirmationRequired) {
                     DeleteConfirmationDialog(
@@ -173,10 +170,13 @@ fun BodyDetailBrg(
     }
 }
 
-
-@Preview(showBackground = true)
 @Composable
-fun CardDetailBrg(modifier: Modifier = Modifier) {
+fun ItemDetailBrg(
+    modifier: Modifier = Modifier,
+    barang: Barang,
+    onClick: () -> Unit
+) {
+    val isClicked = remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -184,14 +184,14 @@ fun CardDetailBrg(modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.shipment_remove__streamline_core),
                 contentDescription = "",
                 modifier = Modifier
-                    .size(48.dp),
+                    .size(84.dp),
                 tint = colorResource(id = R.color.primary)
             )
             Card(
@@ -200,7 +200,7 @@ fun CardDetailBrg(modifier: Modifier = Modifier) {
                     .padding(start = 16.dp)
             ) {
                 Text(
-                    text = "placeholderNama",
+                    text = barang.nama,
                     fontWeight = FontWeight.Bold,
                     fontSize = 28.sp,
                     color = Color.Black,
@@ -216,12 +216,13 @@ fun CardDetailBrg(modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
                             .size(16.dp),
-                        tint = colorResource(id = R.color.primary)
+                        tint =Color.Black
                     )
                     Text(
-                        text = "placeholderID",
+                        text = barang.idBarang,
                         fontSize = 16.sp,
-                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(id= R.color.primary)
                     )
                 }
                 Spacer(modifier = Modifier.padding(vertical = 2.dp))
@@ -235,45 +236,48 @@ fun CardDetailBrg(modifier: Modifier = Modifier) {
                         modifier = Modifier
                             .padding(horizontal = 8.dp)
                             .size(16.dp),
-                        tint = colorResource(id = R.color.primary)
+                        tint = Color.Black
                     )
                     Text(
-                        text = "placeholderSupplier",
+                        text = barang.namaSupplier,
                         fontSize = 16.sp,
-                        color = Color.Black,
+                        fontWeight = FontWeight.Bold,
+                        color = colorResource(id = R.color.primary)
                     )
                 }
                 Spacer(modifier = Modifier.padding(bottom = 8.dp))
             }
 
         }
+        Spacer(modifier = Modifier.padding(4.dp))
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 16.dp)
+                .padding(horizontal = 8.dp)
                 .height(160.dp)
 
         ) {
             Text(
                 text = "Deskripsi",
-                fontSize = 28.sp,
-                color = Color.Black,
-                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp,
+                color = Color.DarkGray,
+                fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(8.dp)
             )
             Text(
-                text = "Deskripsi",
-                fontSize = 16.sp,
+                text = barang.deskripsi,
+                fontSize = 26.sp,
                 color = Color.Black,
-                fontWeight = FontWeight.Normal,
+                fontWeight = FontWeight.Bold,
                 modifier = Modifier.padding(horizontal = 8.dp)
             )
             Spacer(modifier = Modifier.padding(4.dp))
         }
+        Spacer(modifier = Modifier.padding(4.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
@@ -282,113 +286,78 @@ fun CardDetailBrg(modifier: Modifier = Modifier) {
                     .fillMaxWidth()
                     .weight(1f)
             ) {
-                Column (modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(
                         text = "Harga",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 28.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp,
                         color = Color.Black,
                         modifier = Modifier.padding(8.dp),
                         textAlign = TextAlign.Center
                     )
                     Text(
-                        text = "placeholder harga",
-                        fontSize = 16.sp,
-                        color = Color.Black,
-                        fontWeight = FontWeight.Normal,
+                        text = "Rp." + barang.harga.toString(),
+                        fontSize = 28.sp,
+                        color = colorResource(id = R.color.primary),
+                        fontWeight = FontWeight.Bold,
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                 }
             }
-            Spacer(modifier = Modifier.padding(8.dp))
+            Spacer(modifier = Modifier.padding(4.dp))
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f),
 
                 ) {
-                Column (modifier = Modifier.fillMaxWidth(),
-                    horizontalAlignment = Alignment.CenterHorizontally) {
+                Column(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
                     Text(
                         text = "Stok",
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 28.sp,
+                        fontWeight = FontWeight.SemiBold,
+                        fontSize = 20.sp,
                         color = Color.Black,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(8.dp)
-
                     )
                     Text(
-                        text = "placeholderstok",
-                        fontSize = 16.sp,
-                        color = Color.Black,
-                        fontWeight = FontWeight.Normal,
-                        textAlign = TextAlign.Center
+                        text = barang.stok.toString(),
+                        fontSize = 28.sp,
+                        color = colorResource(id = R.color.primary),
+                        fontWeight = FontWeight.Bold,
                     )
                     Spacer(modifier = Modifier.padding(8.dp))
                 }
             }
         }
-    }
-
-}
-
-
-@Composable
-fun ItemDetailBrg(
-    modifier: Modifier = Modifier,
-    barang: Barang
-) {
-    Card(
-        modifier = modifier.fillMaxWidth(),
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        )
-    ) {
-        Column(
-            modifier = Modifier.padding(16.dp)
+        Spacer(modifier = Modifier.padding(4.dp))
+        Button(
+            onClick = onClick,
+            modifier = modifier
+                .fillMaxWidth()
+                .padding(horizontal = 4.dp)
+                .border(
+                    width = 2.dp,
+                    color = if (isClicked.value) colorResource(id = R.color.primary) else Color.Transparent,
+                    shape = RoundedCornerShape(8.dp)
+                ),
+            colors = ButtonDefaults.buttonColors(
+                containerColor = if (isClicked.value) Color.White else colorResource(id = R.color.primary), // warna button
+                contentColor = if (isClicked.value) colorResource(id = R.color.primary) else Color.White // warna text
+            ),
+            shape = RoundedCornerShape(8.dp)
         ) {
-            ComponentDetailBrg(judul = "ID", isinya = barang.idBarang)
-            Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailBrg(judul = "Nama", isinya = barang.nama)
-            Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailBrg(judul = "Deskripsi", isinya = barang.deskripsi)
-            Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailBrg(judul = "Harga", isinya = barang.harga.toString())
-            Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailBrg(judul = "Stok", isinya = barang.stok.toString())
-            Spacer(modifier = Modifier.padding(4.dp))
-            ComponentDetailBrg(judul = "Supplier", isinya = barang.namaSupplier)
+            Text("Delete", fontWeight = FontWeight.Bold)
         }
     }
 }
 
-@Composable
-fun ComponentDetailBrg(
-    modifier: Modifier = Modifier,
-    judul: String,
-    isinya: String,
-) {
-    Column(
-        modifier = modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.Start
-    )
-    {
-        Text(
-            text = "$judul : ",
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold,
-            color = Color.Gray
-        )
-        Text(
-            text = isinya,
-            fontSize = 20.sp,
-            fontWeight = FontWeight.Bold
-        )
-    }
-}
 
 @Composable
 private fun DeleteConfirmationDialog(

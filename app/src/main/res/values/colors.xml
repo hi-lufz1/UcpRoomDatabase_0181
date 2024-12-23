@@ -11,5 +11,6 @@
     <color name="redcard">#FF6363</color>
     <color name="greencard">#0B9D72</color>
     <color name="primary">#6F2CFF</color>
+    <color name="secondary">#B99DFF</color>
 
 </resources>
