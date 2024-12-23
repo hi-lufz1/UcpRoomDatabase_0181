@@ -1,5 +1,7 @@
 package com.example.ucproomdb.ui.view.supplier
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -10,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
@@ -183,9 +186,14 @@ fun CardSupplier(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp),
+            .padding(8.dp)
+            .border(
+            width = 0.5.dp, // Ketebalan garis tepi
+            color = colorResource(id = R.color.graycard), // Warna garis tepi
+            shape = RoundedCornerShape(16.dp) // Bentuk sudut dari garis tepi
+        ),
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.primary)),
+//        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.primary)),
 
         ) {
         Row(
@@ -199,8 +207,9 @@ fun CardSupplier(
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(horizontal = 12.dp)
-                    .size(48.dp),
-                tint = Color.White
+                    .padding(start = 8.dp)
+                    .size(56.dp),
+                tint = Color.Black
             )
             Column(
                 modifier = Modifier.padding(vertical = 12.dp)
@@ -213,61 +222,61 @@ fun CardSupplier(
                     horizontalArrangement = Arrangement.SpaceBetween
                 )
                 {
-                    Spacer(modifier = Modifier.padding(4.dp))
                     Text(
                         text = supp.nama,
                         fontWeight = FontWeight.Bold,
                         fontSize = 28.sp,
-                        color = Color.White,
+                        color = Color.Black,
                     )
                 }
-                Spacer(modifier = Modifier.padding(4.dp))
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier.widthIn(max = 270.dp),
                     verticalAlignment = Alignment.CenterVertically,
-
                     )
                 {
-                    Spacer(modifier = Modifier.padding(4.dp))
                     Text(
-                        text = "Alamat", fontWeight = FontWeight.Normal,
-                        color = Color.White,
-                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
-                    )
-                    Text(
-                        text = " : ", fontWeight = FontWeight.Normal,
-                        color = Color.White,
+                        text = "Alamat", fontWeight = FontWeight.SemiBold,
+                        color = Color.Black,
                         fontSize = 16.sp, modifier = Modifier.weight(0.1f)
                     )
                     Text(
+                        text = " : ", fontWeight = FontWeight.SemiBold,
+                        color = Color.Black,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.02f)
+                    )
+                    Text(
                         text = supp.alamat,
-                        fontWeight = FontWeight.Normal,
+                        fontWeight = FontWeight.SemiBold,
                         fontSize = 16.sp,
-                        color = Color.White,
-                        modifier = Modifier.weight(2f)
+                        color = Color.Black,
+                        modifier = Modifier.weight(0.3f)
                     )
                 }
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .background(color = colorResource(id = R.color.primary),
+                            shape = RoundedCornerShape(6.dp),
+                        )
+                     .widthIn(max = 270.dp),
                     verticalAlignment = Alignment.CenterVertically
                 )
                 {
                     Spacer(modifier = Modifier.padding(4.dp))
                     Text(
-                        text = "Kontak", fontWeight = FontWeight.Normal,
+                        text = "Kontak", fontWeight = FontWeight.SemiBold,
                         color = Color.White,
-                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
+                        fontSize = 16.sp, modifier = Modifier.weight(0.09f)
                     )
                     Text(
-                        text = " : ", fontWeight = FontWeight.Normal,
+                        text = " : ", fontWeight = FontWeight.SemiBold,
                         color = Color.White,
-                        fontSize = 16.sp, modifier = Modifier.weight(0.1f)
+                        fontSize = 16.sp, modifier = Modifier.weight(0.02f)
                     )
                     Text(
                         text = supp.kontak,
-                        fontWeight = FontWeight.Normal,
+                        fontWeight = FontWeight.SemiBold,
                         color = Color.White,
-                        modifier = Modifier.weight(2f)
+                        modifier = Modifier.weight(0.3f)
                     )
                 }
             }

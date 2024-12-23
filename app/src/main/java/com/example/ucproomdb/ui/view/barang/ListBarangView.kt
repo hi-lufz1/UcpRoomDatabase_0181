@@ -228,7 +228,8 @@ fun CardBrg(
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(horizontal = 12.dp)
-                    .size(48.dp),
+                    .padding(start = 8.dp)
+                    .size(56.dp),
                 tint = Color.White
             )
 
@@ -267,7 +268,7 @@ fun CardBrg(
                     Text(
                         text = " : ", fontWeight = FontWeight.Normal,
                         color = Color.White,
-                        fontSize = 16.sp, modifier = Modifier.weight(0.1f)
+                        fontSize = 16.sp, modifier = Modifier.weight(0.13f)
                     )
                     Text(
                         text = "Rp." + brg.harga.toString(),
@@ -291,7 +292,7 @@ fun CardBrg(
                     Text(
                         text = " : ", fontWeight = FontWeight.Normal,
                         color = Color.White,
-                        fontSize = 16.sp, modifier = Modifier.weight(0.1f)
+                        fontSize = 16.sp, modifier = Modifier.weight(0.13f)
                     )
                     Text(
                         text = brg.stok.toString(),
@@ -315,7 +316,7 @@ fun CardBrg(
                     Text(
                         text = " : ", fontWeight = FontWeight.Normal,
                         color = Color.White,
-                        fontSize = 16.sp, modifier = Modifier.weight(0.1f)
+                        fontSize = 16.sp, modifier = Modifier.weight(0.13f)
                     )
                     Text(
                         text = brg.namaSupplier,

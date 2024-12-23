@@ -60,7 +60,8 @@ fun FormBarang(
     onValueChange: (BarangEvent) -> Unit = {},
     errorState: FormErrorState = FormErrorState(),
     supplierList: List<String> = emptyList(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    idEdit: Boolean = true
 ) {
     Column(modifier = modifier.fillMaxWidth()) {
         TextField(
@@ -79,6 +80,7 @@ fun FormBarang(
                 color = Color.Black, fontWeight = FontWeight.Normal,
                 fontSize = 16.sp
             ),
+            enabled = idEdit ,
             isError = errorState.idBarang != null,
             placeholder = { Text("Masukkan ID") },
             colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -283,6 +285,7 @@ fun InsertBarangView(
                 .padding(16.dp)
         ) {
             InsertBodyBrg(
+                idEdit = true,
                 uiState = uiStateB,
                 onValueChange = { viewModel.updateState(it) },
                 supplierList = supplierList.map { it.nama },
@@ -301,7 +304,8 @@ fun InsertBodyBrg(
     onValueChange: (BarangEvent) -> Unit,
     supplierList: List<String>,
     uiState: InsertBrgUiState,
-    onClick: () -> Unit
+    onClick: () -> Unit,
+    idEdit: Boolean
 ) {
     val isClicked = remember { mutableStateOf(false) }
     Column(
@@ -317,6 +321,7 @@ fun InsertBodyBrg(
         )
         Spacer(modifier = Modifier.padding(16.dp))
         FormBarang(
+            idEdit = idEdit,
             barangEvent = uiState.barangEvent,
             onValueChange = onValueChange,
             errorState = uiState.isEntryValid,

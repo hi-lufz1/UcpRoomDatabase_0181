@@ -69,6 +69,7 @@ fun UpdateBarangView(
                 .padding(16.dp)
         ) {
             InsertBodyBrg(
+                idEdit = false,
                 uiState = uiState,
                 onValueChange = { updateEvent ->
                     viewModel.updateState(updateEvent) // Update state di ViewModel
