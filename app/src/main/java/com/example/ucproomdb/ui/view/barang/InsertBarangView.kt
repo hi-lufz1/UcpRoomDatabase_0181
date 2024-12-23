@@ -324,10 +324,10 @@ fun InsertBodyBrg(
         )
         Box(
             modifier = Modifier
-                .fillMaxSize() // Pastikan mengambil seluruh ruang
-                .padding(bottom = 16.dp), // Jarak dari bawah layar
+                .fillMaxSize()
+                .padding(bottom = 16.dp),
             contentAlignment = Alignment.BottomCenter
-        ) {// Posisi di bagian bawah
+        ) {
             Button(
                 onClick = {
                     onClick()
