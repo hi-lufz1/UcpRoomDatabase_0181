@@ -15,12 +15,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
+@Preview(showBackground = true)
 @Composable
 fun HomeView(
-    onAddBarangBtn: () -> Unit,
-    onAddSupplierBtn: () -> Unit
+    onAddBarangBtn: () -> Unit = {},
+    onAddSupplierBtn: () -> Unit = {}
 ){
     Column(
         modifier = Modifier

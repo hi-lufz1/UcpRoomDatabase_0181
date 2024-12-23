@@ -8,12 +8,20 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import com.example.ucproomdb.R
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -32,11 +40,22 @@ fun DropDownWidget(
         onExpandedChange = { expanded = !expanded },
         modifier = modifier
     ) {
-        OutlinedTextField(
+        TextField(
             readOnly = true,
             value = selectedValue,
             onValueChange = {},
-            label = { Text(text = label) },
+            label = { Text(text = label,color = Color.Black, fontWeight = FontWeight.Bold,
+                fontSize = 16.sp
+            ) },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = Color.Transparent,
+                focusedBorderColor = Color.Black,
+                unfocusedBorderColor = colorResource(id = R.color.graycard),
+                errorBorderColor = Color.Red
+            ),textStyle = TextStyle(
+                color = Color.Black, fontWeight = FontWeight.Normal,
+                fontSize = 16.sp
+            ),
             trailingIcon = {
                 ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded)
             },
@@ -51,7 +70,8 @@ fun DropDownWidget(
 
             options.forEach { option ->
                 DropdownMenuItem(
-                    text = { Text(text = option) },
+                    text = { Text(text = option, color = Color.Black, fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp) },
                     onClick = {
                         expanded = false
                         onValueChangeEvent(option)
