@@ -51,9 +51,9 @@ fun TopAppBar(
                     modifier = Modifier.align(Alignment.CenterVertically)
                 ) {
                     Icon(
-                        imageVector = Icons.Default.ArrowBack,
+                        painter = painterResource(id = R.drawable.arrow_round_left__streamline_core),
                         contentDescription = "Kembali",
-                        modifier = Modifier.size(36.dp)
+                        modifier = Modifier.size(32.dp)
                     )
                 }
                 Spacer(modifier = Modifier.weight(2f))
