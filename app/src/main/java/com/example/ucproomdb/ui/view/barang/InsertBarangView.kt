@@ -1,6 +1,7 @@
 package com.example.ucproomdb.ui.view.barang
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,6 +26,8 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -300,6 +303,7 @@ fun InsertBodyBrg(
     uiState: InsertBrgUiState,
     onClick: () -> Unit
 ) {
+    val isClicked = remember { mutableStateOf(false) }
     Column(
         modifier = Modifier.fillMaxWidth(),
         verticalArrangement = Arrangement.Center,
@@ -324,16 +328,24 @@ fun InsertBodyBrg(
                 .padding(bottom = 16.dp), // Jarak dari bawah layar
             contentAlignment = Alignment.BottomCenter
         ) {// Posisi di bagian bawah
-            Button (
-                onClick = onClick,
+            Button(
+                onClick = {
+                    onClick()
+                    isClicked.value = !isClicked.value
+                },
                 modifier = modifier
                     .fillMaxWidth()
-                    .padding(horizontal = 6.dp),
+                    .padding(horizontal = 6.dp)
+                    .border(
+                        width = 2.dp,
+                        color = if (isClicked.value) colorResource(id = R.color.primary) else Color.Transparent,
+                        shape = RoundedCornerShape(8.dp)
+                    ),
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = colorResource(id = R.color.primary), // Warna background button
-                    contentColor = Color.White // Warna teks button
+                    containerColor = if (isClicked.value) Color.White else colorResource(id = R.color.primary), // warna button
+                    contentColor = if (isClicked.value) colorResource(id = R.color.primary) else Color.White // warna text
                 ),
-                shape = RoundedCornerShape(8.dp) // Lengkungan button
+                shape = RoundedCornerShape(8.dp)
             ) {
                 Text("Simpan", fontWeight = FontWeight.Bold)
             }
