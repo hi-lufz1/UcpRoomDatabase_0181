@@ -72,7 +72,7 @@ fun ListBarangView(
         topBar = {
             TopAppBar(
                 onBack = onBack,
-                judul = "DaftarBarang",
+                judul = "Daftar Barang",
                 showBackButton = true,
                 modifier = modifier
             )
@@ -223,7 +223,7 @@ fun CardBrg(
         ) {
             Icon(
                 painter = painterResource(id = R.drawable.shipment_remove__streamline_core),
-                contentDescription = "Kembali",
+                contentDescription = "",
                 modifier = Modifier
                     .fillMaxHeight()
                     .padding(horizontal = 12.dp)
@@ -242,7 +242,6 @@ fun CardBrg(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween
                 )
-
                 {
                     Spacer(modifier = Modifier.padding(horizontal = 4.dp))
                     Text(

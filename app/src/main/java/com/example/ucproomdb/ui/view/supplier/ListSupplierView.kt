@@ -1,20 +1,23 @@
 package com.example.ucproomdb.ui.view.supplier
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarHostState
@@ -27,12 +30,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.ucproomdb.R
 import com.example.ucproomdb.data.entity.Supplier
+import com.example.ucproomdb.ui.customwidget.BottomBar
+import com.example.ucproomdb.ui.customwidget.TopAppBar
 import com.example.ucproomdb.ui.viewmodel.PenyediaViewModel
 import com.example.ucproomdb.ui.viewmodel.supplier.ListSuppViewModel
 import com.example.ucproomdb.ui.viewmodel.supplier.SuppUiState
@@ -42,9 +51,48 @@ import kotlinx.coroutines.launch
 @Composable
 fun ListSupplierView(
     viewModel: ListSuppViewModel = viewModel(factory = PenyediaViewModel.Factory),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onAddSupplier: () -> Unit = { },
+    onBack: () -> Unit = {},
+    onHome: () -> Unit = {},
+    onBarang: () -> Unit = {},
+    onSupplier: () -> Unit = {},
 ) {
-    Scaffold { innerPadding ->
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                onBack = onBack,
+                judul = "Daftar Supplier",
+                showBackButton = true,
+                modifier = modifier
+            )
+        },
+        bottomBar = {
+            BottomBar(
+                onHome = onHome,
+                onBarang = onBarang,
+                onSupplier = onSupplier,
+                modifier = modifier
+            )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = onAddSupplier,
+                shape = CircleShape,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(64.dp),
+                containerColor = colorResource(id = R.color.primary),
+                contentColor = Color.White
+            ) {
+                Icon(
+                    painter = painterResource(id = R.drawable.add_layer_2__streamline_core_remix),
+                    contentDescription = "Tambah Supplier",
+                    modifier = Modifier.size(36.dp)
+                )
+            }
+        }
+    ) { innerPadding ->
         val listSuppUiState by viewModel.listSuppUiState.collectAsState()
 
         BodyListSupplier(
@@ -135,51 +183,94 @@ fun CardSupplier(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
-    ) {
-        Column(
-            modifier = Modifier.padding(12.dp)
-        )
-        {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            )
-            {
-                Icon(imageVector = Icons.Filled.Person, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = supp.nama,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
-                )
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            )
-            {
-                Icon(imageVector = Icons.Filled.DateRange, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = supp.alamat,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            )
-            {
-                Icon(imageVector = Icons.Filled.Home, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = supp.kontak,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+            .padding(8.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = colorResource(id = R.color.primary)),
 
+        ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = modifier.fillMaxWidth()
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.user_check_validate__streamline_core),
+                contentDescription = "",
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(horizontal = 12.dp)
+                    .size(48.dp),
+                tint = Color.White
+            )
+            Column(
+                modifier = Modifier.padding(vertical = 12.dp)
+                    .weight(1f)
+            )
+            {
+                Row(
+                    modifier = Modifier,
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
+                )
+                {
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = supp.nama,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 28.sp,
+                        color = Color.White,
+                    )
+                }
+                Spacer(modifier = Modifier.padding(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+
+                    )
+                {
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = "Alamat", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
+                    )
+                    Text(
+                        text = " : ", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.1f)
+                    )
+                    Text(
+                        text = supp.alamat,
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp,
+                        color = Color.White,
+                        modifier = Modifier.weight(2f)
+                    )
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                )
+                {
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = "Kontak", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
+                    )
+                    Text(
+                        text = " : ", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.1f)
+                    )
+                    Text(
+                        text = supp.kontak,
+                        fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        modifier = Modifier.weight(2f)
+                    )
+                }
+            }
         }
     }
 }
