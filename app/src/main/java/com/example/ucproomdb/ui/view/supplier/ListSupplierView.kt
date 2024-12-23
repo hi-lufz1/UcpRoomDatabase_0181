@@ -43,8 +43,8 @@ import com.example.ucproomdb.data.entity.Supplier
 import com.example.ucproomdb.ui.customwidget.BottomBar
 import com.example.ucproomdb.ui.customwidget.TopAppBar
 import com.example.ucproomdb.ui.viewmodel.PenyediaViewModel
+import com.example.ucproomdb.ui.viewmodel.supplier.ListSuppUiState
 import com.example.ucproomdb.ui.viewmodel.supplier.ListSuppViewModel
-import com.example.ucproomdb.ui.viewmodel.supplier.SuppUiState
 import kotlinx.coroutines.launch
 
 @Preview(showBackground = true)
@@ -104,7 +104,7 @@ fun ListSupplierView(
 
 @Composable
 fun BodyListSupplier(
-    listSuppUiState: SuppUiState,
+    listSuppUiState: ListSuppUiState,
     modifier: Modifier = Modifier
 ) {
     val coroutineScope = rememberCoroutineScope()

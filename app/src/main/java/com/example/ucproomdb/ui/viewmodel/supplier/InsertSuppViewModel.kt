@@ -14,7 +14,7 @@ class InsertSuppViewModel(
     private val repositorySupp: RepositorySupp
 ) : ViewModel() {
 
-    var suppUiState by mutableStateOf(SuppUIState())
+    var suppUiState by mutableStateOf(InsertSuppUiState())
 
     fun updateState(supplierEvent: SupplierEvent) {
         suppUiState = suppUiState.copy(
@@ -71,7 +71,7 @@ class InsertSuppViewModel(
 }
 
 
-data class SuppUIState(
+data class InsertSuppUiState(
     val supplierEvent: SupplierEvent = SupplierEvent(),
     val isEntryValid: SuppFormErrorState = SuppFormErrorState(),
     val snackBarMessage: String? = null

@@ -17,21 +17,21 @@ class ListSuppViewModel(
     private val
     repositorySupp: RepositorySupp
 ) : ViewModel() {
-    val listSuppUiState: StateFlow<SuppUiState> = repositorySupp.getAllSupp()
+    val listSuppUiState: StateFlow<ListSuppUiState> = repositorySupp.getAllSupp()
         .filterNotNull()
         .map {
-            SuppUiState(
+            ListSuppUiState(
                 listSupp = it.toList(),
                 isLoading = false
             )
         }
         .onStart {
-            emit(SuppUiState(isLoading = true))
+            emit(ListSuppUiState(isLoading = true))
             delay(500)
         }
         .catch {
             emit(
-                SuppUiState(
+                ListSuppUiState(
                     isLoading = false,
                     isError = true,
                     errorMessage = it.message ?: "Error"
@@ -41,14 +41,14 @@ class ListSuppViewModel(
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
-            initialValue = SuppUiState(
+            initialValue = ListSuppUiState(
                 isLoading = true
             )
         )
 }
 
 
-data class SuppUiState(
+data class ListSuppUiState(
     val listSupp: List<Supplier> = listOf(),
     val isLoading: Boolean = false,
     val isError: Boolean = false,

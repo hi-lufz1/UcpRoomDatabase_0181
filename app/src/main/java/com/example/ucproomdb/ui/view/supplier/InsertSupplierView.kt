@@ -21,10 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.ucproomdb.ui.viewmodel.supplier.InsertSuppViewModel
 import com.example.ucproomdb.ui.viewmodel.PenyediaViewModel
+import com.example.ucproomdb.ui.viewmodel.supplier.InsertSuppUiState
+import com.example.ucproomdb.ui.viewmodel.supplier.InsertSuppViewModel
 import com.example.ucproomdb.ui.viewmodel.supplier.SuppFormErrorState
-import com.example.ucproomdb.ui.viewmodel.supplier.SuppUIState
 import com.example.ucproomdb.ui.viewmodel.supplier.SupplierEvent
 import kotlinx.coroutines.launch
 
@@ -96,13 +96,8 @@ fun FormSupplier(
             text = errorState.kontak ?: "",
             color = Color.Red
         )
-
-
     }
-
 }
-
-
 
 
 @Composable
@@ -155,7 +150,7 @@ fun InsertSupplierView(
 fun InsertBodySupp(
     modifier: Modifier = Modifier,
     onValueChange: (SupplierEvent) -> Unit,
-    uiState: SuppUIState,
+    uiState: InsertSuppUiState,
     onClick: () -> Unit
 ) {
     Column(

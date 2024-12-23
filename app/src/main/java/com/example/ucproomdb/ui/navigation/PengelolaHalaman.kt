@@ -26,7 +26,7 @@ fun PengelolaHalaman(
 ) {
     NavHost(
         navController = navController,
-        startDestination = DestinasiListSupp.route
+        startDestination = DestinasiInsertSupp.route
     ) {
         composable(route = DestinasiHome.route) {
             HomeView(
@@ -55,6 +55,10 @@ fun PengelolaHalaman(
                         "PengelolaHalaman: ID =  $id"
                     )
                 },
+                onHome = { navController.navigate(DestinasiHome.route) },
+                onSupplier = { navController.navigate(DestinasiListSupp.route) },
+                onBarang = { navController.navigate(DestinasiListBrg.route) },
+                onBack = { navController.popBackStack() },
                 modifier = Modifier
             )
         }
@@ -67,7 +71,7 @@ fun PengelolaHalaman(
         ) {
             val id = it.arguments?.getString(DestinasiDetailBrg.idBarang)
             id?.let { id ->
-              DetailBarangView(
+                DetailBarangView(
                     onBack = {
                         navController.popBackStack()
                     },
@@ -96,8 +100,13 @@ fun PengelolaHalaman(
                 modifier = modifier
             )
         }
-        composable(route=DestinasiListSupp.route){
+        composable(route = DestinasiListSupp.route) {
             ListSupplierView(
+                onHome = { navController.navigate(DestinasiHome.route) },
+                onSupplier = { navController.navigate(DestinasiListSupp.route) },
+                onBarang = { navController.navigate(DestinasiListBrg.route) },
+                onBack = { navController.popBackStack() },
+                onAddSupplier = {navController.navigate(DestinasiInsertSupp.route)},
                 modifier = modifier
             )
         }
