@@ -31,7 +31,7 @@ fun BottomBar(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 36.dp),
+            .padding(horizontal = 36.dp, vertical = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         BottomBarItem(
@@ -72,13 +72,13 @@ fun BottomBarItem(
             Icon(
                 painter = painterResource(id = iconResId),
                 contentDescription = contentDescription,
-                modifier = Modifier.size(36.dp)
+                modifier = Modifier.size(32.dp)
             )
         }
         Text(
             text = label,
             fontSize = 12.sp,
-            fontWeight = FontWeight.Normal
+            fontWeight = FontWeight.Normal,
         )
     }
 }

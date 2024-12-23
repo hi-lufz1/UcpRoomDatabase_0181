@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -49,13 +50,29 @@ fun TopAppBar(
                 IconButton(
                     onClick = onBack, // Fungsi untuk ikon kembali
                     modifier = Modifier.align(Alignment.CenterVertically)
+                        .size(32.dp)
                 ) {
                     Icon(
                         painter = painterResource(id = R.drawable.arrow_round_left__streamline_core),
                         contentDescription = "Kembali",
-                        modifier = Modifier.size(32.dp)
+                        modifier = Modifier.fillMaxSize()
                     )
                 }
+                Spacer(modifier = Modifier.weight(2f))
+                Image(
+                    painter = painterResource(id = R.drawable.chillguy),
+                    contentDescription = "",
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier
+                        .clip(shape = CircleShape)
+                        .size(42.dp)
+                )
+            }
+        } else {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 Spacer(modifier = Modifier.weight(2f))
                 Image(
                     painter = painterResource(id = R.drawable.chillguy),
@@ -71,7 +88,7 @@ fun TopAppBar(
         // Teks judul
         Text(
             text = judul,
-            fontSize = 25.sp,
+            fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.Center)
         )

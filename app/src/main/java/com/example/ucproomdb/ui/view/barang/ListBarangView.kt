@@ -1,12 +1,16 @@
 package com.example.ucproomdb.ui.view.barang
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
@@ -20,7 +24,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.magnifier
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.MaterialTheme
@@ -31,15 +39,22 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.ucproomdb.data.entity.Barang
+import com.example.ucproomdb.ui.customwidget.BottomBar
+import com.example.ucproomdb.ui.customwidget.TopAppBar
 import com.example.ucproomdb.ui.viewmodel.PenyediaViewModel
 import com.example.ucproomdb.ui.viewmodel.barang.BarangUiState
 import com.example.ucproomdb.ui.viewmodel.barang.ListBrgViewModel
 import kotlinx.coroutines.launch
+import com.example.ucproomdb.R
 
 @Preview(showBackground = true)
 @Composable
@@ -47,18 +62,43 @@ fun ListBarangView(
     viewModel: ListBrgViewModel = viewModel(factory = PenyediaViewModel.Factory),
     onDetailClick: (String) -> Unit = { },
     onAddBarang: () -> Unit = { },
+    onBack: () -> Unit = {},
+    onHome: () -> Unit = {},
+    onBarang: () -> Unit = {},
+    onSupplier: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     Scaffold(
+        topBar = {
+            TopAppBar(
+                onBack = onBack,
+                judul = "DaftarBarang",
+                showBackButton = true,
+                modifier = modifier
+            )
+        },
+        bottomBar = {
+            BottomBar(
+                onHome = onHome,
+                onBarang = onBarang,
+                onSupplier = onSupplier,
+                modifier = modifier
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = onAddBarang,
-                shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(16.dp)
+                shape = CircleShape,
+                modifier = Modifier
+                    .padding(8.dp)
+                    .size(64.dp),
+                containerColor = colorResource(id = R.color.primary),
+                contentColor = Color.White
             ) {
                 Icon(
-                    imageVector = Icons.Default.Add,
-                    contentDescription = "Tambah Mahasiswa"
+                    painter = painterResource(id = R.drawable.add_layer_2__streamline_core_remix),
+                    contentDescription = "Tambah Barang",
+                    modifier = Modifier.size(36.dp)
                 )
             }
         }
@@ -161,66 +201,143 @@ fun CardBrg(
     modifier: Modifier = Modifier,
     onClick: () -> Unit = { }
 ) {
+    val cardColor = when {
+        brg.stok == 0 -> colorResource(id = R.color.graycard)
+        brg.stok in 1..10 -> colorResource(id = R.color.redcard)
+        else -> colorResource(id = R.color.greencard)
+    }
     Card(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(8.dp),
+        colors = CardDefaults.cardColors(containerColor = cardColor),
+        shape = RoundedCornerShape(16.dp)
+
     ) {
-        Column(
-            modifier = Modifier.padding(12.dp)
-        )
-        {
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = modifier.fillMaxWidth()
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.shipment_remove__streamline_core),
+                contentDescription = "Kembali",
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(horizontal = 12.dp)
+                    .size(48.dp),
+                tint = Color.White
+            )
+
+            Column(
+                modifier = Modifier
+                    .padding(vertical = 12.dp)
+                    .weight(1f)
             )
             {
-                Icon(imageVector = Icons.Filled.Person, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = brg.nama,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp
+                Row(
+                    modifier = Modifier,
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween
                 )
+
+                {
+                    Spacer(modifier = Modifier.padding(horizontal = 4.dp))
+                    Text(
+                        text = brg.nama,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 28.sp,
+                        color = Color.White,
+                    )
+                }
+                Spacer(modifier = Modifier.padding(4.dp))
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                )
+                {
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = "Harga", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
+                    )
+                    Text(
+                        text = " : ", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.1f)
+                    )
+                    Text(
+                        text = "Rp." + brg.harga.toString(),
+                        fontWeight = FontWeight.Normal,
+                        fontSize = 16.sp,
+                        color = Color.White,
+                        modifier = Modifier.weight(2f)
+                    )
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                )
+                {
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = "Stok", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
+                    )
+                    Text(
+                        text = " : ", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.1f)
+                    )
+                    Text(
+                        text = brg.stok.toString(),
+                        fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp,
+                        modifier = Modifier.weight(2f)
+                    )
+                }
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                )
+                {
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Text(
+                        text = "Supplier", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.6f)
+                    )
+                    Text(
+                        text = " : ", fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp, modifier = Modifier.weight(0.1f)
+                    )
+                    Text(
+                        text = brg.namaSupplier,
+                        fontWeight = FontWeight.Normal,
+                        color = Color.White,
+                        fontSize = 16.sp,
+                        modifier = Modifier.weight(2f)
+                    )
+
+                }
             }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
+            Icon(
+                painter = painterResource(id = R.drawable.bracket__streamline_core),
+                contentDescription = "",
+                modifier = Modifier
+                    .size(48.dp)
+                    .padding(horizontal = 12.dp)
+                    .fillMaxHeight(),
+                tint = Color.White
             )
-            {
-                Icon(imageVector = Icons.Filled.DateRange, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = brg.harga.toString(),
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 16.sp
-                )
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            )
-            {
-                Icon(imageVector = Icons.Filled.Home, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = brg.stok.toString(),
-                    fontWeight = FontWeight.Bold
-                )
-            }
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            )
-            {
-                Icon(imageVector = Icons.Filled.Home, contentDescription = "")
-                Spacer(modifier = Modifier.padding(4.dp))
-                Text(
-                    text = brg.namaSupplier,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+
         }
+
     }
 }
