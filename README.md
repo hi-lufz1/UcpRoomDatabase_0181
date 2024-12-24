@@ -41,5 +41,3 @@ Tambah Supplier
 
 
 
-Link penjelasan project
-https://drive.google.com/file/d/1pMHK98Wenvfy7xC9H6-FTcWlyDgnEKwv/view?usp=sharing
