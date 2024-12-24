@@ -33,19 +33,22 @@ fun PengelolaHalaman(
                 onHome = { navController.navigate(DestinasiHome.route) },
                 onSupplier = { navController.navigate(DestinasiListSupp.route) },
                 onBarang = { navController.navigate(DestinasiListBrg.route) },
-                onAddSupplierBtn = { navController.navigate(DestinasiInsertSupp.route) },
-                onAddBarangBtn = { navController.navigate(DestinasiInsertBrg.route) },
+                onAddSupplier = { navController.navigate(DestinasiInsertSupp.route) },
+                onAddBarang = { navController.navigate(DestinasiInsertBrg.route) },
+                modifier = modifier
             )
         }
         composable(route = DestinasiInsertSupp.route) {
             InsertSupplierView(
-                onNavigate = { navController.navigate(DestinasiHome.route) },
+                onNavigate ={navController.popBackStack()},
+                onBack = {navController.popBackStack()},
                 modifier = modifier
             )
         }
         composable(route = DestinasiInsertBrg.route) {
             InsertBarangView(
-                onNavigate = { navController.navigate(DestinasiHome.route) },
+                onNavigate ={navController.popBackStack()},
+                onBack = {navController.popBackStack()},
                 modifier = modifier
             )
         }
