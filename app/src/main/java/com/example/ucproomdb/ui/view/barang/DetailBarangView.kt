@@ -299,7 +299,7 @@ fun ItemDetailBrg(
                         textAlign = TextAlign.Center
                     )
                     Text(
-                        text = "Rp." + barang.harga.toString(),
+                        text = "Rp " + barang.harga.toString(),
                         fontSize = 28.sp,
                         color = colorResource(id = R.color.primary),
                         fontWeight = FontWeight.Bold,

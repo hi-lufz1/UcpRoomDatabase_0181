@@ -271,7 +271,7 @@ fun CardBrg(
                         fontSize = 16.sp, modifier = Modifier.weight(0.13f)
                     )
                     Text(
-                        text = "Rp." + brg.harga.toString(),
+                        text = "Rp " + brg.harga.toString(),
                         fontWeight = FontWeight.Normal,
                         fontSize = 16.sp,
                         color = Color.White,
